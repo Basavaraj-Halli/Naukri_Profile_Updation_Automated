@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Free Naukri Profile Updation Automation test suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Free Naukri Profile Updation Automation testcases(failed)">
+    <classes>
+      <class name="com.naukri.qa.pagetests.LoginPageTest">
+        <methods>
+          <include name="complete"/>
+          <include name="validateLoginPageTitleTest"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- com.naukri.qa.pagetests.LoginPageTest -->
+    </classes>
+  </test> <!-- Free Naukri Profile Updation Automation testcases(failed) -->
+</suite> <!-- Failed suite [Free Naukri Profile Updation Automation test suite] -->

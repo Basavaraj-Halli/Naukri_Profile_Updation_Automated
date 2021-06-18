@@ -1,0 +1,27 @@
+package com.naukri.qa.pages;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import com.naukri.qa.base.BaseComn;
+
+public class JobesPage extends BaseComn {
+
+	// Page Factory - OR:
+	@FindBy(xpath = "//div[text()='My Naukri']")
+	@CacheLookup
+	WebElement myNaukriLink;
+
+	// Initializing Page Factory:
+	public JobesPage() {
+		PageFactory.initElements(driver, this);
+	}
+
+	// Action Methods:
+	public boolean validateMyNaukriLink() {
+		return myNaukriLink.isDisplayed();
+	}
+
+}

@@ -1,0 +1,63 @@
+package com.naukri.qa.pagetests;
+
+import java.io.IOException;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.naukri.qa.base.BaseComn;
+import com.naukri.qa.pages.JobesPage;
+import com.naukri.qa.pages.LoginPage;
+import com.naukri.qa.util.UtilComn;
+
+public class JobesPageTest extends BaseComn {
+
+	JobesPage jobesPg;
+	LoginPage loginPg;
+	WebDriver jdriver;
+	UtilComn utilComn;
+
+	// Access Initialization() for WebDriver
+	@BeforeMethod
+	public void setup() throws InterruptedException {
+		jdriver = initialization();
+		loginPg = new LoginPage(jdriver);
+		jobesPg = loginPg.Login(prop.getProperty("username"), prop.getProperty("password"));
+		Thread.sleep(8000);
+		utilComn = new UtilComn(jdriver);
+	}
+
+	@Test(priority = 1, enabled = false)
+	public void validateJobesPageLinkTest() throws InterruptedException {
+		boolean flag = jobesPg.validateMyNaukriLink();
+		assrt.assertTrue(flag);
+		Thread.sleep(5000);
+	}
+
+	@Test(priority = 2, enabled = false)
+	public void clickOnEditProfileLinkTest() throws InterruptedException {
+		jobesPg = jobesPg.clickOnEditProfileLink(prop.getProperty("updateName"), prop.getProperty("mobileNumber"));
+		Thread.sleep(5000);
+		System.out.println("Naukri profile successfully updated");
+	}
+
+	@Test(priority = 3)
+	public void clickOnUpdateResumeTest() throws InterruptedException {
+		jobesPg = jobesPg.clickOnUpdateResume();
+		Thread.sleep(5000);
+		System.out.println("Resume updated successfuly");
+	}
+
+	@Test(priority = 4, enabled = false)
+	public void CheckForBrokenLinkTest() throws IOException {
+		utilComn.checkForInvalidLinks();
+	}
+
+	@AfterMethod
+	public void complete() {
+		jobesPg.closeBrowser();
+	}
+
+}

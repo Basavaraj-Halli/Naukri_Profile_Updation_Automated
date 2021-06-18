@@ -1,0 +1,63 @@
+/*
+ * Locate all the LoginPage WebElements
+ * Initialize the WebElements
+ * 
+ * */
+package com.naukri.qa.pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import com.naukri.qa.base.BaseComn;
+
+public class LoginPage extends BaseComn {
+
+	// Page-Factory -- Object Repository:
+	@FindBy(xpath = "//div[contains(text(),'Login')]")
+	WebElement loginLink;
+
+	@FindBy(xpath = "//input[@type='text']")
+	WebElement username;
+
+	@FindBy(xpath = "//input[@type='password']")
+	WebElement password;
+
+	@FindBy(xpath = "//button[@type='submit']")
+	WebElement loginBtn;
+
+	// Initializing page Objects:
+	public LoginPage(WebDriver ldriver) {
+		driver = ldriver;
+		PageFactory.initElements(driver, this);
+	}
+
+	// Action methods:
+	public String validateLoginPageTitle() {
+		return driver.getTitle();
+	}
+
+	public boolean validateLoginLink() {
+		return loginLink.isDisplayed();
+	}
+
+	public JobesPage Login(String un, String pwd) throws InterruptedException {
+		System.out.println("WIndowID at in Login method: " + driver.getWindowHandle());
+		loginLink.click();
+		Thread.sleep(5000);
+		username.clear();
+		username.sendKeys(un);
+		Thread.sleep(5000);
+		password.clear();
+		password.sendKeys(pwd);
+		Thread.sleep(5000);
+		loginBtn.click();
+
+		return new JobesPage();
+	}
+
+	public void CloseBrowser() {
+		driver.quit();
+	}
+}

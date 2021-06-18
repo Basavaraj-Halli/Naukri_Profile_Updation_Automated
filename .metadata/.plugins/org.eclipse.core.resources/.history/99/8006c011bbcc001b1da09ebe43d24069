@@ -1,0 +1,7 @@
+package com.naukri.qa.pages;
+
+import com.naukri.qa.base.BaseComn;
+
+public class JobesPage extends BaseComn {
+
+}

@@ -1,0 +1,92 @@
+/*
+ * Constructor - configuration of properties
+ * 
+ * Initialization() - Block Notifications
+ *                    Create the instance of WebDriver
+ *                    delete all current cookies
+ *                    Maximize the window
+ *                    Apply pageLoadTimeOuts and ImplicitWaitTime
+ *                    open the URL
+ * */
+
+package com.naukri.qa.base;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.naukri.qa.util.UtilComn;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class BaseComn {
+
+	public Properties prop;
+	public static WebDriver driver;
+	static String parent;
+
+	public BaseComn() {
+		prop = new Properties();
+		try {
+			FileInputStream fileInp = new FileInputStream(
+					"D:\\Naukri\\Naukri\\src\\main\\java\\com\\naukri\\qa\\config\\config.properties");
+			prop.load(fileInp);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public WebDriver initialization() {
+
+		// Creating the instance of web driver
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver = new ChromeDriver();
+
+		// maximize and delete present cookies
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+
+		// Apply timeout settings
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(UtilComn.PAGE_LOAD_TIME));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(UtilComn.IMPLICIT_WAIT_TIME));
+
+		// open the URL
+		driver.get(prop.getProperty("url"));
+
+		// Close the Pop-Up windows
+		Set<String> wndws = driver.getWindowHandles();
+		int windowNos = wndws.size();
+		Iterator<String> itr = wndws.iterator();
+		if (windowNos >= 2) {
+			parent = itr.next();
+			while (itr.hasNext() == true) {
+				String s = itr.next();
+				if (s != parent) {
+					driver.switchTo().window(s).close();
+				}
+			}
+			driver.switchTo().window(parent);
+		}
+
+		// Close the permission Pop-Ups
+		driver.findElement(By.xpath("//button[contains(text(),'GOT IT')]")).click();
+		driver.findElement(By.xpath("//*[@id=\"block\"]")).click();
+		return driver;
+	}
+
+	public void switchInToForm(String iFrameName) {
+		driver.switchTo().frame(iFrameName);
+	}
+
+	public void switchOutFromFrame() {
+		driver.switchTo().defaultContent();
+	}
+
+}

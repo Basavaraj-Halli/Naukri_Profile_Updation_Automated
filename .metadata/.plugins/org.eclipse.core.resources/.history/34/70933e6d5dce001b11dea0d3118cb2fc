@@ -1,0 +1,29 @@
+package com.naukri.qa.pagetests;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+
+import com.naukri.qa.base.BaseComn;
+import com.naukri.qa.pages.JobesPage;
+
+public class JobesPageTest extends BaseComn {
+
+	JobesPage jobesPg;
+
+	// JobesPageTest Initializations
+	JobesPageTest() {
+		jobesPg = new JobesPage();
+	}
+
+	// Access Initialization() for WebDriver
+	@BeforeMethod
+	public void setup() {
+		initialization();
+
+	}
+
+	@Test
+	public void validateJobesPageLinkTest() {
+
+	}
+}

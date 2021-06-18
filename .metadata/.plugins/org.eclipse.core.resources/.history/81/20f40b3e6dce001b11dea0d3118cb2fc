@@ -1,0 +1,42 @@
+package com.naukri.qa.pagetests;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.naukri.qa.base.BaseComn;
+import com.naukri.qa.pages.JobesPage;
+import com.naukri.qa.pages.LoginPage;
+
+public class JobesPageTest extends BaseComn {
+
+	JobesPage jobesPg;
+	LoginPage loginPg;
+	WebDriver jdriver;
+
+	// Access Initialization() for WebDriver
+	@BeforeMethod
+	public void setup() throws InterruptedException {
+		jdriver = initialization();
+		loginPg = new LoginPage(jdriver);
+		jobesPg= loginPg.Login(prop.getProperty("username"), prop.getProperty("password"));
+		jobesPg =new JobesPage(jdriver);
+	}
+
+	@Test(priority = 1)
+	public void validateJobesPageLinkTest() {
+		boolean flag = jobesPg.validateMyNaukriLink();
+		assrt.assertTrue(flag);
+	}
+
+	@Test(priority = 2)
+	public void clickOnEditProfileLinkTest() {
+		jobesPg = jobesPg.clickOnEditProfileLink(prop.getProperty("updateName"), prop.getProperty("mobileNumber"));
+	}
+
+	@AfterMethod
+	public void complete() {
+		jobesPg.closeBrowser();
+	}
+}

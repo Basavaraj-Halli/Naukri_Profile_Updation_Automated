@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Free Naukri Profile Updation Automation test suite">
+  <test thread-count="5" name="Free Naukri Profile Updation Automation testcases">
+    <classes>
+      <class name="com.naukri.qa.pagetests.JobesPageTest"/>
+      <class name="com.naukri.qa.pagetests.LoginPageTest"/>
+    </classes>
+  </test> <!-- Free Naukri Profile Updation Automation testcases -->
+</suite> <!-- Free Naukri Profile Updation Automation test suite -->

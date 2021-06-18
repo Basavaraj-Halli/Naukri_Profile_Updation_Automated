@@ -1,0 +1,94 @@
+/*
+ * Locate all the LoginPage WebElements
+ * Initialize the WebElements
+ * 
+ * */
+package com.naukri.qa.pages;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import com.naukri.qa.base.BaseComn;
+
+public class LoginPage extends BaseComn {
+
+	// Page-Factory -- Object Repository:
+	@FindBy(xpath = "//div[contains(text(),'Login')]")
+	@CacheLookup
+	WebElement loginLink;
+
+	@FindBy(xpath = "//input[@type='text']")
+	@CacheLookup
+	WebElement username;
+
+	@FindBy(xpath = "//input[@type='password']")
+	@CacheLookup
+	WebElement password;
+
+	@FindBy(xpath = "//button[@type='submit']")
+	@CacheLookup
+	WebElement loginBtn;
+
+	// Initializing page Objects:
+	public LoginPage(WebDriver ldriver) {
+		driver = ldriver;
+		PageFactory.initElements(driver, this);
+	}
+
+	// Action methods:
+	public String validateLoginPageTitle() {
+		return driver.getTitle();
+	}
+
+	public boolean validateLoginLink() {
+		return loginLink.isDisplayed();
+	}
+
+	public JobesPage Login(String un, String pwd) throws InterruptedException {
+		loginLink.click();
+		Thread.sleep(2000);
+		username.clear();
+		username.sendKeys(un);
+		Thread.sleep(2000);
+		password.clear();
+		password.sendKeys(pwd);
+		Thread.sleep(2000);
+		loginBtn.click();
+		return new JobesPage(driver);
+	}
+
+	public void CloseBrowser() {
+		driver.quit();
+	}
+
+	public WebDriver checkForBrokenLink() throws IOException {
+		List<WebElement> links = driver.findElements(By.tagName("a"));
+		Iterator<WebElement> itr = links.iterator();
+		int invalidLink = 0;
+		System.out.println("Invalid Links from Login Page are: ");
+		while (itr.hasNext() == true) {
+			WebElement linkEle = itr.next();
+			String alink = linkEle.getAttribute("href");
+			URL url = new URL(alink);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.connect();
+			if (con.getResponseCode() >= 400) {
+				System.out.println(con.getResponseCode() + ": " + alink);
+				invalidLink++;
+			}
+		}
+		System.out.println("No of Invalid Links from the Login page are: " + invalidLink);
+		return driver;
+	}
+
+}

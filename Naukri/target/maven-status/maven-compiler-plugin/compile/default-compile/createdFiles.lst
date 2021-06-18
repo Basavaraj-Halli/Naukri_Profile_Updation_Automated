@@ -1,0 +1,4 @@
+com\naukri\qa\util\UtilComn.class
+com\naukri\qa\pages\JobesPage.class
+com\naukri\qa\base\BaseComn.class
+com\naukri\qa\pages\LoginPage.class

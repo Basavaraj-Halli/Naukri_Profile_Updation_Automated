@@ -1,0 +1,48 @@
+package com.naukri.qa.pagetests;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import com.naukri.qa.base.BaseComn;
+import com.naukri.qa.pages.JobesPage;
+import com.naukri.qa.pages.LoginPage;
+
+public class LoginPageTest extends BaseComn {
+
+	LoginPage loginPg;
+	SoftAssert assrt;
+	JobesPage jobesPg;
+	WebDriver ldriver;
+
+	public LoginPageTest() {
+		super();
+	}
+
+	@BeforeMethod
+	public void setup() {
+		ldriver = initialization();
+		// System.out.println("WIndowID at in before method: " +
+		// driver.getWindowHandle());
+		assrt = new SoftAssert();
+		loginPg = new LoginPage(ldriver);
+	}
+
+	/*
+	 * @Test(priority = 1) public void validateLoginPageTitleTest() { String
+	 * ActTitle = loginPg.assrt.assertEquals(ActTitle,
+	 * prop.getProperty("ExptTitleLoginPage")); }
+	 */
+
+	@Test(priority = 1)
+	public void loginTest() throws InterruptedException {
+		jobesPg = loginPg.Login(prop.getProperty("username"), prop.getProperty("password"));
+	}
+
+	/*
+	 * @AfterMethod public void complete() { loginPg.CloseBrowser(); }
+	 */
+
+}

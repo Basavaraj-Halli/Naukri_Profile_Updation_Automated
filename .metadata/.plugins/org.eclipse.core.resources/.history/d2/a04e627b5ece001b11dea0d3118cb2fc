@@ -1,0 +1,27 @@
+package com.naukri.qa.pagetests;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.naukri.qa.base.BaseComn;
+import com.naukri.qa.pages.JobesPage;
+
+public class JobesPageTest extends BaseComn {
+
+	JobesPage jobesPg;
+	WebDriver jdriver;
+
+	// Access Initialization() for WebDriver
+	@BeforeMethod
+	public void setup() {
+		jdriver=initialization();
+		jobesPg = new JobesPage(jdriver);
+
+	}
+
+	@Test
+	public void validateJobesPageLinkTest() {
+
+	}
+}

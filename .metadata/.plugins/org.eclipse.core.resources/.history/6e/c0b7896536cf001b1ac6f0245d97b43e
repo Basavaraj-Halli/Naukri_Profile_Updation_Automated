@@ -1,0 +1,65 @@
+package com.naukri.qa.pagetests;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.AssertJUnit;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.naukri.qa.base.BaseComn;
+import com.naukri.qa.pages.JobesPage;
+import com.naukri.qa.pages.LoginPage;
+
+public class LoginPageTest extends BaseComn {
+
+	LoginPage loginPg;
+	JobesPage jobesPg;
+	WebDriver ldriver;
+
+	public LoginPageTest() {
+		super();
+	}
+
+	// Access Initialization() for WebDriver
+	@BeforeMethod(enabled = false)
+	public void setup() {
+		ldriver = initialization();
+		loginPg = new LoginPage(ldriver);
+	}
+
+	@Test(priority = 1, enabled = false)
+	public void validateLoginPageTitleTest() throws InterruptedException {
+		String ActTitle = loginPg.validateLoginPageTitle();
+		AssertJUnit.assertEquals(ActTitle, prop.getProperty("ExptTitleLoginPage"));
+		Thread.sleep(9000);
+	}
+
+	@Test(priority = 2, enabled = false)
+	public void validateLoginLinkTest() throws InterruptedException {
+		boolean ActTitle = loginPg.validateLoginLink();
+		AssertJUnit.assertTrue(ActTitle);
+		Thread.sleep(9000);
+	}
+
+	@Test(priority = 3, enabled = false)
+	public void loginTest() throws InterruptedException {
+		jobesPg = loginPg.Login(prop.getProperty("username"), prop.getProperty("password"));
+		Thread.sleep(9000);
+	}
+
+	@Test(priority = 4)
+	public void CheckForBrokenLinkTest() throws IOException {
+		ArrayList<String> list = loginPg.checkForBrokenLink();
+		System.out.println("Invalid links from the login class are : ");
+		System.out.println(list);
+	}
+
+	@AfterMethod(enabled = false)
+	public void complete() {
+		loginPg.CloseBrowser();
+	}
+
+}

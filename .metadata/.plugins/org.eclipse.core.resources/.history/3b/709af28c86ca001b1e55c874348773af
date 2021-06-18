@@ -1,0 +1,8 @@
+package com.naukri.qa.util;
+
+public class UtilComn {
+	
+	 public static final int PAGE_LOAD_TIME = 20;
+	 public static final int IMPLICIT_WAIT_TIME = 10;
+	 
+}

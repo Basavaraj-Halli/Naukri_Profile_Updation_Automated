@@ -1,0 +1,35 @@
+package com.naukri.qa.util;
+
+import java.util.Iterator;
+import java.util.Set;
+
+import com.naukri.qa.base.BaseComn;
+
+public class UtilComn {
+
+	public static int PAGE_LOAD_TIME = 20;
+	public static int IMPLICIT_WAIT_TIME = 10;
+	static String parent;
+
+	// Close the Pop-Up windows
+	public void closeWindowPopUps() {
+		Set<String> wndws = BaseComn.driver.getWindowHandles();
+		int windowNos = wndws.size();
+		Iterator<String> itr = wndws.iterator();
+		if (windowNos >= 2) {
+			parent = itr.next();
+			while (itr.hasNext() == true) {
+				String s = itr.next();
+				if (s != parent) {
+					BaseComn.driver.switchTo().window(s).close();
+				}
+			}
+			BaseComn.driver.switchTo().window(parent);
+		}
+	}
+
+	public void closeLoginPgPopUps() {
+		BaseComn.driver
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.naukri.qa.pagetests;
+
+public class JobesPageTest {
+
+}

@@ -1,0 +1,8 @@
+url = https://www.naukri.com/
+
+username = basavaraj5396@gmail.com
+password = basu9611
+
+ExptTitleLoginPage = "Jobs - Recruitment - Job Search -  Employment -Job Vacancies - Naukri.com"
+
+LoginIframeName = "login-form"

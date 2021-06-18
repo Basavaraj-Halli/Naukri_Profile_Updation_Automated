@@ -1,0 +1,9 @@
+package com.naukri.qa.pagetests;
+
+import com.naukri.qa.base.BaseComn;
+
+public class JobesPageTest extends BaseComn {
+	
+	
+
+}
